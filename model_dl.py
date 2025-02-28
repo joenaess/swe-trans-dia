@@ -1,5 +1,4 @@
 import whisperx
-import torch
 import os
 from dotenv import load_dotenv
 

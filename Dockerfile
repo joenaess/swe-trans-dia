@@ -13,4 +13,6 @@ RUN /root/.local/bin/uv pip install --no-cache-dir -r requirements.txt
 
 COPY app/ /app/
 
+RUN ruff check .  # Run ruff to check for linting errors
+
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

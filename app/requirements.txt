@@ -4,3 +4,4 @@ whisperx
 torch
 torchaudio
 python-dotenv
+ruff

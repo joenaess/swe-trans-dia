@@ -3,3 +3,5 @@ cache
 .dockerignore
 .env
 models
+*.mp3
+stuff.txt
