@@ -7,3 +7,4 @@ models
 stuff.txt
 .ruff_check
 *.ipynb
+test1.py
