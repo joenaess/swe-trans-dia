@@ -1,9 +1,9 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException, Query
 import whisperx
 import torch
-import io
 from dotenv import load_dotenv
 import os
+import tempfile
 
 load_dotenv()
 
@@ -23,16 +23,15 @@ model = whisperx.load_model(
     device,
     compute_type=compute_type,
     download_root="/app/models",
-    auth_token=hf_token,
 )
 model_a, metadata = whisperx.load_align_model(
+    device=device,
     language_code="sv",
     model_name="KBLab/wav2vec2-large-voxrex-swedish",
     model_dir="/app/models",
-    auth_token=hf_token,
 )
 
-diarize_model = whisperx.DiarizationPipeline(use_auth_token=hf_token, device=device, model_dir="/app/models")
+diarize_model = whisperx.DiarizationPipeline(use_auth_token=hf_token, device=device)
 
 @app.post("/transcribe/")
 async def transcribe(
@@ -44,8 +43,15 @@ async def transcribe(
         raise HTTPException(status_code=400, detail="Invalid file type. Only .wav, .mp3, and .ogg are supported.")
 
     try:
-        audio_bytes = await file.read()
-        audio = whisperx.load_audio(io.BytesIO(audio_bytes))
+        # Create a temporary file
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio:
+            temp_audio_path = temp_audio.name
+            # Write the uploaded audio to the temporary file
+            audio_bytes = await file.read()
+            temp_audio.write(audio_bytes)
+
+        # Load audio from the temporary file
+        audio = whisperx.load_audio(temp_audio_path)
         result = model.transcribe(audio, batch_size=batch_size)
         aligned_result = whisperx.align(
             result["segments"], model_a, metadata, audio, device, return_char_alignments=False

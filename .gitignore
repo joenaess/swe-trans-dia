@@ -5,3 +5,5 @@ cache
 models
 *.mp3
 stuff.txt
+.ruff_check
+*.ipynb

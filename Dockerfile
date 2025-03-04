@@ -1,18 +1,17 @@
 FROM nvidia/cuda:12.6.2-cudnn-runtime-ubuntu22.04
+
 WORKDIR /app
 
 COPY app/requirements.txt /app/requirements.txt
 
-RUN apt-get update && apt-get install -y ffmpeg curl
+RUN apt-get update && apt-get install -y ffmpeg python3-pip  # Install pip
 
-# Install uv
-RUN curl -fsSL https://raw.githubusercontent.com/astral-sh/uv/main/install.sh | sh
+RUN pip install --no-cache-dir -r requirements.txt  # Install all requirements with pip
 
-# Install python packages using uv
-RUN /root/.local/bin/uv pip install --no-cache-dir -r requirements.txt
-
+COPY models/ /app/models/
 COPY app/ /app/
+COPY .env /app/.env
 
-RUN ruff check .  # Run ruff to check for linting errors
+RUN ruff check .
 
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
