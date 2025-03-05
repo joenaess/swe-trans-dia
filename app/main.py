@@ -19,7 +19,7 @@ if not hf_token:
     raise ValueError("HUGGINGFACE_TOKEN not found in .env file.")
 
 model = whisperx.load_model(
-    "KBLab/kb-whisper-large",
+    "KBLab/kb-whisper-small", #change to large in prod
     device,
     compute_type=compute_type,
     download_root="/app/models",
