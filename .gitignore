@@ -4,6 +4,7 @@ cache
 .env
 models
 *.mp3
+*.wav
 stuff.txt
 .ruff_check
 *.ipynb
