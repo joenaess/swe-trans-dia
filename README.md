@@ -1,4 +1,4 @@
-# WhisperX FastAPI API
+# Swedish Transcription and Diarization with WhisperX FastAPI API
 
 This repository contains a FastAPI application that provides speech-to-text transcription for Swedish, alignment, and speaker diarization using the `whisperx` library.
 
