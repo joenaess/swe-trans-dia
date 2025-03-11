@@ -9,3 +9,8 @@ stuff.txt
 .ruff_check
 *.ipynb
 test1.py
+st_test1.py
+*.png
+st_app.py
+st_test1.py
+Wada_SNR.py
