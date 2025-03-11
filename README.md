@@ -25,7 +25,7 @@ This repository contains a FastAPI application that provides speech-to-text tran
    ```bash
    docker-compose build --no-cache
 
-3. **Create a .env file in the root directory and add your Hugging Face token::**
+3. **Create a .env file in the root directory and add your Hugging Face token, the token should have been apporved for pyannote (https://huggingface.co/pyannote/speaker-diarization-3.1):**
    ```bash
    HUGGINGFACE_TOKEN=your_huggingface_token
 
