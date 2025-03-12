@@ -41,7 +41,12 @@ This repository contains a FastAPI application that provides speech-to-text tran
    ```bash
    docker-compose up -d
 
-6. **Send a POST request to the /transcribe/ endpoint with your audio file:**
+6. **Run tests:**
+
+   ```bash
+   pytest tests/
+
+7. **Send a POST request to the /transcribe/ endpoint with your audio file:**
 
    ```bash
    curl -X POST -F "file=@audio.wav" "http://localhost:8000/transcribe/?min_speakers=2&max_speakers=2"
