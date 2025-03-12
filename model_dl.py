@@ -1,5 +1,6 @@
-import whisperx
 import os
+
+import whisperx
 from dotenv import load_dotenv
 
 load_dotenv()

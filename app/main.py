@@ -1,9 +1,10 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException, Query
-import whisperx
-import torch
-from dotenv import load_dotenv
 import os
 import tempfile
+
+import torch
+import whisperx
+from dotenv import load_dotenv
+from fastapi import FastAPI, File, HTTPException, Query, UploadFile
 
 load_dotenv()
 
@@ -19,7 +20,7 @@ if not hf_token:
     raise ValueError("HUGGINGFACE_TOKEN not found in .env file.")
 
 model = whisperx.load_model(
-    "KBLab/kb-whisper-small", #change to large in prod
+    "KBLab/kb-whisper-small",  # change to large in prod
     device,
     compute_type=compute_type,
     download_root="/app/models",
@@ -31,7 +32,10 @@ model_a, metadata = whisperx.load_align_model(
     model_dir="/app/models",
 )
 
-diarize_model = whisperx.DiarizationPipeline(model_name='pyannote/speaker-diarization-3.1', use_auth_token=hf_token, device=device)
+diarize_model = whisperx.DiarizationPipeline(
+    model_name="pyannote/speaker-diarization-3.1", use_auth_token=hf_token, device=device
+)
+
 
 @app.post("/transcribe/")
 async def transcribe(
@@ -66,7 +70,8 @@ async def transcribe(
 
         return {"segments": result["segments"]}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
+
 
 if __name__ == "__main__":
     import uvicorn
