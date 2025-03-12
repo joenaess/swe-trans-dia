@@ -1,10 +1,13 @@
 # Swedish Transcription and Diarization with WhisperX FastAPI API
 
-This repository contains a FastAPI application that provides speech-to-text transcription for Swedish, alignment, and speaker diarization using the `whisperx` library.
+This repository contains a FastAPI application that provides speech-to-text transcription for Swedish, alignment, and speaker diarization using the `whisperx` library. Models for speech-to-text (Whisper) and forced alignment are finetuned by Kungliga Biblioteket, KB-Lab. See [https://www.kb.se/samverkan-och-utveckling/nytt-fran-kb/nyheter-samverkan-och-utveckling/2025-02-20-valtranad-ai-modell-forvandlar-tal-till-text.html](https://www.kb.se/samverkan-och-utveckling/nytt-fran-kb/nyheter-samverkan-och-utveckling/2025-02-20-valtranad-ai-modell-forvandlar-tal-till-text.html) for more details.] It is all tested on my laptop with a RTX4090 GPU. CI will enforce linting with ruff.
+
+   ```bash
+   ruff check .
 
 ## Features
 
-* **Transcription:** Transcribes audio files using the KBLab/kb-whisper-large Whisper model.
+* **Transcription:** Transcribes audio files using the KBLab/kb-whisper-large Whisper model (or smaller if desired).
 * **Alignment:** Aligns the transcribed text with the audio to provide word-level timestamps.
 * **Speaker Diarization:** Identifies different speakers in the audio and labels the transcribed segments accordingly.
 
