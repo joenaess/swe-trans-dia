@@ -91,3 +91,37 @@ Here's a guide to help you contribute effectively:
    git add .
    git commit -m "feat: Add new feature for..."
     ```
+
+### 8.  Push Changes
+
+* Push your changes to your fork:
+
+    ```bash
+   git push origin feature/my-feature
+    ```
+
+### 9.  Create a Pull Request (PR)
+
+* Provide a clear and descriptive title and description for your PR.
+* Keep your changes focused and avoid large, unrelated modifications.
+* Include any relevant context or background information.
+* Link any related issues.
+
+### 10.  PR Review
+
+* All pull requests will be reviewed by maintainers.
+* Please be responsive to feedback and make any necessary changes.
+* Address review comments promptly.
+* Be patient; code review takes time.
+
+### 11.  After Approva
+
+* Once your PR is approved, it will be merged into the main branch.
+* Congratulations on your contribution!
+
+## Additional Notes
+
+* Issues: Please use GitHub Issues to report bugs, suggest enhancements, or propose new features.
+* Documentation: Keep documentation up-to-date with your changes.
+* Communication: Use GitHub Discussions or other appropriate channels for communication and questions.
+* Thank you again for contributing!
