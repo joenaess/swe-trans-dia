@@ -31,7 +31,7 @@ model_a, metadata = whisperx.load_align_model(
     model_dir="/app/models",
 )
 
-diarize_model = whisperx.DiarizationPipeline(use_auth_token=hf_token, device=device)
+diarize_model = whisperx.DiarizationPipeline(model_name='pyannote/speaker-diarization-3.1', use_auth_token=hf_token, device=device)
 
 @app.post("/transcribe/")
 async def transcribe(
