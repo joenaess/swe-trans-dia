@@ -1,3 +1,4 @@
+import logging
 import os
 import tempfile
 
@@ -10,6 +11,9 @@ load_dotenv()
 
 app = FastAPI()
 
+# Configure basic logging
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+
 device = "cuda" if torch.cuda.is_available() else "cpu"
 batch_size = 16
 compute_type = "float16"
@@ -20,7 +24,7 @@ if not hf_token:
     raise ValueError("HUGGINGFACE_TOKEN not found in .env file.")
 
 model = whisperx.load_model(
-    "KBLab/kb-whisper-small",  # change to large in prod
+    "KBLab/kb-whisper-large",  # change to small in dev
     device,
     compute_type=compute_type,
     download_root="/app/models",
@@ -47,6 +51,7 @@ async def transcribe(
         raise HTTPException(status_code=400, detail="Invalid file type. Only .wav, .mp3, and .ogg are supported.")
 
     try:
+        logging.info(f"Processing audio file: {file.filename}") # Log info
         # Create a temporary file
         with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio:
             temp_audio_path = temp_audio.name
@@ -68,8 +73,11 @@ async def transcribe(
 
         result = whisperx.assign_word_speakers(diarize_segments, aligned_result)
 
+        logging.info(f"Transcription and diarization complete for: {file.filename}") # Log completion
+
         return {"segments": result["segments"]}
     except Exception as e:
+        logging.exception("Error during transcription:") # Log the exception
         raise HTTPException(status_code=500, detail=str(e)) from e
 
 
